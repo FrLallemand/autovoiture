@@ -3,7 +3,16 @@
 
 #include <QMainWindow>
 #include <QDebug>
+#include <QTableView>
+#include <QTableWidget>
+
+#include <vector>
+
 #include "addvehiculedialog.h"
+#include "systeme.h"
+#include "vehicule.h"
+
+using namespace std;
 
 namespace Ui {
 class MainWindow;
@@ -20,7 +29,10 @@ public:
 private slots:
     void on_b_addVehicule_clicked();
 
+    void on_b_listVehicule_clicked();
+
 private:
+    void setTvForVehicules();
     Ui::MainWindow *ui;
 };
 

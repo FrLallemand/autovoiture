@@ -1,18 +1,19 @@
 #include "systeme.h"
 
-Systeme::Systeme(string p_db_path)
+Systeme::Systeme()
 {
-    this->db_path = p_db_path;
+    QDir path_to_db = QDir::homePath() + QString::fromStdString("/.local/share/autovoiture");
+
+    if(!path_to_db.exists()){
+        qDebug() << "Création du dossier.";
+        path_to_db.mkpath(".");
+    }
+
+    this->db_path = path_to_db.path().toStdString() + "/autovoiture.db";
 }
 
 void Systeme::ajouterVehicule(string modele, QDate dernierControleTechnique, int prix_horaire, int prix_majoration, string type_vehicule){
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-
-    db.setDatabaseName(QString::fromStdString(this->db_path));
-
-    if(!db.open()){
-        qCritical() << "Impossible d'ouvrir la base de données.";
-    }
+    QSqlDatabase db = this->openDatabase();
 
     QSqlQuery create_table(db);
     create_table.prepare("create table if not exists vehicule("
@@ -38,5 +39,42 @@ void Systeme::ajouterVehicule(string modele, QDate dernierControleTechnique, int
     if(!insert_vehicule.exec()){
         qCritical() << "Impossible d'insérer le véhicule";
         qCritical() << insert_vehicule.lastError().text();
+    }
+
+    db.close();
+}
+
+vector<Vehicule> Systeme::getVehicules(){
+    vector<Vehicule> result;
+    QSqlDatabase db = this->openDatabase();
+
+    QSqlQuery fetch_vehicules("select *"
+                              "from vehicule;");
+
+    while(fetch_vehicules.next()){
+        string modele = fetch_vehicules.value("modele").toString().toStdString();
+        QDate dernierCT = fetch_vehicules.value("dernierCT").toDate();
+        int prix_horaire = fetch_vehicules.value("prix_horaire").toInt();
+        int prix_majoration = fetch_vehicules.value("prix_majoration").toInt();
+        string type = fetch_vehicules.value("type").toString().toStdString();
+
+        Vehicule* v = new Vehicule(modele, dernierCT, prix_horaire, prix_majoration, type);
+        result.push_back(*v);
+    }
+
+    db.close();
+    return result;
+}
+
+QSqlDatabase Systeme::openDatabase(){
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+
+    db.setDatabaseName(QString::fromStdString(this->db_path));
+
+    if(!db.open()){
+        qCritical() << "Impossible d'ouvrir la base de données.";
+    }
+    else{
+        return db;
     }
 }

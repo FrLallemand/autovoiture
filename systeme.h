@@ -6,9 +6,12 @@
 #include <QSqlError>
 #include <QDebug>
 #include <QDate>
+#include <QDir>
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <vector>
+#include "vehicule.h"
 
 using namespace std;
 
@@ -17,8 +20,10 @@ class Systeme
 private:
     string db_path;
 public:
-    Systeme(string p_db_path);
+    Systeme();
     void ajouterVehicule(string modele, QDate dernierControleTechnique, int prix_horaire, int prix_majoration, string type_vehicule);
+    QSqlDatabase openDatabase();
+    vector<Vehicule> getVehicules();
 };
 
 #endif // SYSTEME_H

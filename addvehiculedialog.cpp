@@ -15,14 +15,7 @@ AddVehiculeDialog::~AddVehiculeDialog()
 
 void AddVehiculeDialog::on_buttonBox_clicked(QAbstractButton *button)
 {
-    QDir path_to_db = QDir::homePath() + QString::fromStdString("/.local/share/autovoiture");
-
-    if(!path_to_db.exists()){
-        qDebug() << "Création du dossier.";
-        path_to_db.mkpath(".");
-    }
-
-    Systeme* s = new Systeme(path_to_db.path().toStdString() + "/autovoiture.db");
+    Systeme* s = new Systeme();
 
     QString modele = this->ui->le_Modele->text();
     QDate dernierCt = this->ui->de_dernierCt->date();
@@ -44,6 +37,7 @@ void AddVehiculeDialog::on_buttonBox_clicked(QAbstractButton *button)
     }
     else{
         s->ajouterVehicule(modele.toStdString(), dernierCt, prixHoraire.toInt(), prixMajo.toInt(), typeVehicule.toStdString());
+
         this->close();
     }
 }
