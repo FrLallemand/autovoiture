@@ -1,11 +1,12 @@
 #include "vehicule.h"
 
-Vehicule::Vehicule(string modele, QDate dernierControleTechnique, int prix_horaire, int prix_majoration, string type_vehicule){
+Vehicule::Vehicule(string modele, QDate dernierControleTechnique, int prix_horaire, int prix_majoration, string type_vehicule, bool dispo){
     this->modele = modele;
     this->dernierControleTechnique = dernierControleTechnique;
     this->prix_horaire = prix_horaire;
     this->prix_majoration = prix_majoration;
     this->type_vehicule = type_vehicule;
+    this->dispo = dispo;
 }
 
 string Vehicule::getModele(){
@@ -26,4 +27,8 @@ int Vehicule::getPrixMajoration(){
 
 string Vehicule::getTypeVehicule(){
     return this->type_vehicule;
+}
+
+bool Vehicule::isDispo(){
+    return this->dispo;
 }

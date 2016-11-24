@@ -21,6 +21,7 @@ void Systeme::ajouterVehicule(string modele, QDate dernierControleTechnique, int
                          "dernierCT varchar(40),"
                          "prix_horaire integer,"
                          "prix_majoration integer,"
+                         "dispo integer,"
                          "type varchar(40));");
 
     if(!create_table.exec()){
@@ -29,11 +30,12 @@ void Systeme::ajouterVehicule(string modele, QDate dernierControleTechnique, int
     }
 
     QSqlQuery insert_vehicule(db);
-    insert_vehicule.prepare("insert into vehicule values(:modele, :dernierCT, :prix_horaire, :prix_majoration, :type);");
+    insert_vehicule.prepare("insert into vehicule values(:modele, :dernierCT, :prix_horaire, :prix_majoration, :dispo, :type);");
     insert_vehicule.bindValue(":modele", QString::fromStdString(modele));
     insert_vehicule.bindValue(":dernierCT", dernierControleTechnique.toString());
     insert_vehicule.bindValue(":prix_horaire", prix_horaire);
     insert_vehicule.bindValue(":prix_majoration", prix_majoration);
+    insert_vehicule.bindValue(":dispo", 1);
     insert_vehicule.bindValue(":type", QString::fromStdString(type_vehicule));
 
     if(!insert_vehicule.exec()){
@@ -53,12 +55,13 @@ vector<Vehicule> Systeme::getVehicules(){
 
     while(fetch_vehicules.next()){
         string modele = fetch_vehicules.value("modele").toString().toStdString();
-        QDate dernierCT = fetch_vehicules.value("dernierCT").toDate();
+        QDate dernierCT = QDate::fromString(fetch_vehicules.value("dernierCT").toString());
         int prix_horaire = fetch_vehicules.value("prix_horaire").toInt();
         int prix_majoration = fetch_vehicules.value("prix_majoration").toInt();
         string type = fetch_vehicules.value("type").toString().toStdString();
+        bool dispo = fetch_vehicules.value("dispo").toBool();
 
-        Vehicule* v = new Vehicule(modele, dernierCT, prix_horaire, prix_majoration, type);
+        Vehicule* v = new Vehicule(modele, dernierCT, prix_horaire, prix_majoration, type, dispo);
         result.push_back(*v);
     }
 

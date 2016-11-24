@@ -2,9 +2,12 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QHeaderView>
 #include <QDebug>
 #include <QTableView>
 #include <QTableWidget>
+#include <QColor>
+#include <QResizeEvent>
 
 #include <vector>
 
@@ -32,6 +35,8 @@ private slots:
     void on_b_listVehicule_clicked();
 
 private:
+    void resizeEvent(QResizeEvent *event);
+    void resetHeaderViewSize();
     void setTvForVehicules();
     Ui::MainWindow *ui;
 };
