@@ -2,6 +2,7 @@
 #define ADDVEHICULEDIALOG_H
 
 #include <QDialog>
+#include <QErrorMessage>
 #include <QDir>
 #include "systeme.h"
 #include <QDateEdit>

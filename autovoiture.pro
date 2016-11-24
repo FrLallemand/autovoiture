@@ -16,11 +16,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     systeme.cpp \
-    addvehiculedialog.cpp
+    addvehiculedialog.cpp \
+    vehicule.cpp
 
 HEADERS  += mainwindow.h \
     systeme.h \
-    addvehiculedialog.h
+    addvehiculedialog.h \
+    vehicule.h
 
 FORMS    += mainwindow.ui \
     addvehiculedialog.ui
