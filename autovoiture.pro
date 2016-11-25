@@ -17,12 +17,17 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     systeme.cpp \
     addvehiculedialog.cpp \
-    vehicule.cpp
+    vehicule.cpp \
+    addchauffeurdialog.cpp \
+    chauffeur.cpp
 
 HEADERS  += mainwindow.h \
     systeme.h \
     addvehiculedialog.h \
-    vehicule.h
+    vehicule.h \
+    addchauffeurdialog.h \
+    chauffeur.h
 
 FORMS    += mainwindow.ui \
-    addvehiculedialog.ui
+    addvehiculedialog.ui \
+    addchauffeurdialog.ui

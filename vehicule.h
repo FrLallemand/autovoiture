@@ -17,6 +17,7 @@ private:
     string type_vehicule;
 
 public:
+    Vehicule();
     Vehicule(string modele, QDate dernierControleTechnique, int prix_horaire, int prix_majoration, string type_vehicule, bool dispo);
     string getModele();
     QDate getDernierControleTechnique();

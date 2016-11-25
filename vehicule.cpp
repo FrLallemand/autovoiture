@@ -1,5 +1,9 @@
 #include "vehicule.h"
 
+Vehicule::Vehicule(){
+
+}
+
 Vehicule::Vehicule(string modele, QDate dernierControleTechnique, int prix_horaire, int prix_majoration, string type_vehicule, bool dispo){
     this->modele = modele;
     this->dernierControleTechnique = dernierControleTechnique;

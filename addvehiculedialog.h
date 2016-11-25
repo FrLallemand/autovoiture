@@ -24,6 +24,8 @@ public:
 private slots:
     void on_buttonBox_clicked(QAbstractButton *button);
 
+    void on_b_addChauffeur_accepted();
+
 private:
     Ui::AddVehiculeDialog *ui;
 };

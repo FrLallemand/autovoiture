@@ -29,6 +29,15 @@ void AddVehiculeDialog::on_buttonBox_clicked(QAbstractButton *button)
     if(dernierCt > QDate::currentDate()){
         msg->showMessage("Date invalide.");
     }
+    else if(modele.isEmpty()){
+        msg->showMessage("Vous devez entrer le modèle du véhicule.");
+    }
+    else if(prixHoraire.isEmpty()){
+        msg->showMessage("Vous devez renseigner de le prix horaire de la location du véhicule");
+    }
+    else if(prixMajo.isEmpty()){
+        msg->showMessage("Vous devez renseigner le prix de la majoration si le véhicule n'est pas rendu à temps.");
+    }
     else if(prixHoraire <= 0){
         msg->showMessage("Le prix horaire du véhicule doit être supérieur à 0.");
     }
@@ -41,3 +50,7 @@ void AddVehiculeDialog::on_buttonBox_clicked(QAbstractButton *button)
         this->close();
     }
 }
+
+ void AddVehiculeDialog::on_b_addChauffeur_accepted(){
+    //...
+ }

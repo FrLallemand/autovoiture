@@ -31,9 +31,23 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="b_ajouterChauffeur">
+        <property name="text">
+         <string>Ajouter Chauffeur</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="b_listVehicule">
         <property name="text">
          <string>Liste des Véhicules</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="b_listeChauffeurs">
+        <property name="text">
+         <string>Liste des Chauffeurs</string>
         </property>
        </widget>
       </item>
