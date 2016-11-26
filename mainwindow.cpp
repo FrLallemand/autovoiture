@@ -23,7 +23,6 @@ void MainWindow::on_b_addVehicule_clicked()
 }
 
 void MainWindow::resizeEvent(QResizeEvent *event){
-    cout << "coucou";
     if(this->getAffiche() != "Nothing"){
         this->resetHeaderViewSize();
     }
@@ -81,17 +80,11 @@ void MainWindow::setTvForChauffeurs(){
 }
 
 void MainWindow::resetHeaderViewSize(){
-    //if(ui->tvMain->)
-
-    qDebug() << "Requête des metrics";
-
-    /*
     int columnSize = ui->tvMain->width() / ui->tvMain->columnCount();
 
-    for(int i = 0; i < ui->tvMain->colorCount(); i++){
+    for(int i = 0; i < ui->tvMain->columnCount(); i++){
         ui->tvMain->horizontalHeader()->resizeSection(i, columnSize);
     }
-    */
 }
 
 void MainWindow::on_b_ajouterChauffeur_clicked()
