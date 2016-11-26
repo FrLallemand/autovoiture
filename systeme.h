@@ -17,6 +17,7 @@
 #include "vehicule.h"
 #include "chauffeur.h"
 
+#define DB_NAME "autovoitureDB"
 using namespace std;
 
 class Systeme

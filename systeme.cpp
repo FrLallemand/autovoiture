@@ -81,7 +81,7 @@ QVector<Vehicule> Systeme::getVehicules(){
     QSqlDatabase db = this->openDatabase();
 
     QSqlQuery fetch_vehicules("select ROWID, *"
-                              "from vehicule;");
+                              "from vehicule;", db);
 
 
     while(fetch_vehicules.next()){
@@ -106,7 +106,7 @@ QVector<Chauffeur> Systeme::getChauffeurs(){
 
     QSqlDatabase db = this->openDatabase();
     QSqlQuery fetch_chauffeurs("select *"
-                               "from chauffeur;");
+                               "from chauffeur;", db);
 
     if(!fetch_chauffeurs.exec()){
         qDebug() << "La récupération des chauffeurs a échoué";
@@ -128,7 +128,14 @@ QVector<Chauffeur> Systeme::getChauffeurs(){
 }
 
 QSqlDatabase Systeme::openDatabase(){
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    QSqlDatabase db;
+
+    if(!QSqlDatabase::contains(DB_NAME)){
+        db = QSqlDatabase::addDatabase("QSQLITE", DB_NAME);
+    }
+    else{
+        db = QSqlDatabase::database(DB_NAME);
+    }
 
     db.setDatabaseName(QString::fromStdString(this->db_path));
 

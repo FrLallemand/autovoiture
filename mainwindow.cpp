@@ -19,7 +19,10 @@ void MainWindow::on_b_addVehicule_clicked()
 {
     AddVehiculeDialog* avd = new AddVehiculeDialog(this);
 
-    avd->show();
+    avd->exec();
+
+    if(this->getAffiche() == "Vehicule")
+        this->ui->b_listVehicule->click();
 }
 
 void MainWindow::resizeEvent(QResizeEvent *event){
@@ -31,38 +34,40 @@ void MainWindow::resizeEvent(QResizeEvent *event){
 void MainWindow::on_b_listVehicule_clicked()
 {
     if(this->getAffiche() != "Vehicule"){
-        Systeme* s = new Systeme();
-
-        QVector<Vehicule> vehicules;
-
-        vehicules = s->getVehicules();
-
         this->setTvForVehicules();
-
-        for(int i = 0; i < vehicules.size(); i++){
-            ui->tvMain->setRowCount(ui->tvMain->rowCount() + 1);
-            ui->tvMain->setItem(i, COLONNE_ID, new QTableWidgetItem(QString::number(vehicules[i].getId())));
-            ui->tvMain->setItem(i, COLONNE_MODELE, new QTableWidgetItem(QString::fromStdString(vehicules[i].getModele())));
-            ui->tvMain->setItem(i, COLONNE_LASTCT, new QTableWidgetItem(vehicules[i].getDernierControleTechnique().toString()));
-            ui->tvMain->setItem(i, COLONNE_PRIXH, new QTableWidgetItem(QString::number(vehicules[i].getPrixHoraire())));
-            ui->tvMain->setItem(i, COLONNE_PRIXM, new QTableWidgetItem(QString::number(vehicules[i].getPrixMajoration())));
-            ui->tvMain->setItem(i, COLONNE_TYPE, new QTableWidgetItem(QString::fromStdString(vehicules[i].getTypeVehicule())));
-
-            if(vehicules[i].isDispo()){
-                QTableWidgetItem* item_dispo = new QTableWidgetItem("Disponible");
-                item_dispo->setBackgroundColor(QColor(0, 255, 0));
-                ui->tvMain->setItem(i, COLONNE_DISPO, item_dispo);
-            }
-            else{
-                QTableWidgetItem* item_indispo = new QTableWidgetItem("Indisponible");
-                item_indispo->setBackgroundColor(QColor(255, 0, 0));
-                ui->tvMain->setItem(i, COLONNE_DISPO, item_indispo);
-            }
-        }
-
-        this->setAffiche("Vehicule");
-        this->resetHeaderViewSize();
     }
+
+    Systeme* s = new Systeme();
+
+    QVector<Vehicule> vehicules;
+
+    vehicules = s->getVehicules();
+
+    this->setTvForVehicules();
+
+    for(int i = 0; i < vehicules.size(); i++){
+        ui->tvMain->setRowCount(ui->tvMain->rowCount() + 1);
+        ui->tvMain->setItem(i, COLONNE_ID, new QTableWidgetItem(QString::number(vehicules[i].getId())));
+        ui->tvMain->setItem(i, COLONNE_MODELE, new QTableWidgetItem(QString::fromStdString(vehicules[i].getModele())));
+        ui->tvMain->setItem(i, COLONNE_LASTCT, new QTableWidgetItem(vehicules[i].getDernierControleTechnique().toString()));
+        ui->tvMain->setItem(i, COLONNE_PRIXH, new QTableWidgetItem(QString::number(vehicules[i].getPrixHoraire())));
+        ui->tvMain->setItem(i, COLONNE_PRIXM, new QTableWidgetItem(QString::number(vehicules[i].getPrixMajoration())));
+        ui->tvMain->setItem(i, COLONNE_TYPE, new QTableWidgetItem(QString::fromStdString(vehicules[i].getTypeVehicule())));
+
+        if(vehicules[i].isDispo()){
+            QTableWidgetItem* item_dispo = new QTableWidgetItem("Disponible");
+            item_dispo->setBackgroundColor(QColor(0, 255, 0));
+            ui->tvMain->setItem(i, COLONNE_DISPO, item_dispo);
+        }
+        else{
+            QTableWidgetItem* item_indispo = new QTableWidgetItem("Indisponible");
+            item_indispo->setBackgroundColor(QColor(255, 0, 0));
+            ui->tvMain->setItem(i, COLONNE_DISPO, item_indispo);
+        }
+    }
+
+    this->setAffiche("Vehicule");
+    this->resetHeaderViewSize();
 }
 
 void MainWindow::setTvForVehicules(){
@@ -97,7 +102,10 @@ void MainWindow::on_b_ajouterChauffeur_clicked()
 {
     AddChauffeurDialog* acd = new AddChauffeurDialog();
 
-    acd->show();
+    acd->exec();
+
+    if(this->getAffiche() == "Chauffeur")
+        this->ui->b_listeChauffeurs->click();
 }
 
 void MainWindow::on_b_listeChauffeurs_clicked()

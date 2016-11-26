@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QErrorMessage>
 #include <QString>
+#include <QAbstractButton>
 
 #include "systeme.h"
 
@@ -21,8 +22,6 @@ public:
     ~AddChauffeurDialog();
 
 private slots:
-    void on_buttonBox_accepted();
-
     void on_b_ajouterChauffeur_accepted();
 
 private:

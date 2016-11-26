@@ -13,12 +13,7 @@ AddChauffeurDialog::~AddChauffeurDialog()
     delete ui;
 }
 
-void AddChauffeurDialog::on_buttonBox_accepted(){
-    //...
-}
-
-void AddChauffeurDialog::on_b_ajouterChauffeur_accepted()
-{
+void AddChauffeurDialog::on_b_ajouterChauffeur_accepted(){
     Systeme *s = new Systeme();
 
     QString prenom = ui->le_prenom->text();

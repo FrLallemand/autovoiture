@@ -9,6 +9,7 @@
 #include <QColor>
 #include <QVector>
 #include <QResizeEvent>
+#include <QPushButton>
 
 #include <iostream>
 
@@ -49,11 +50,11 @@ private slots:
 
     void on_b_listVehicule_clicked();
 
-    void on_b_ajouterChauffeur_clicked();
-
     void on_b_listeChauffeurs_clicked();
 
     void on_tvMain_cellDoubleClicked(int row, int column);
+
+    void on_b_ajouterChauffeur_clicked();
 
 private:
     QString affiche;
