@@ -80,10 +80,12 @@ QVector<Vehicule> Systeme::getVehicules(){
     QVector<Vehicule> result;
     QSqlDatabase db = this->openDatabase();
 
-    QSqlQuery fetch_vehicules("select *"
+    QSqlQuery fetch_vehicules("select ROWID, *"
                               "from vehicule;");
 
+
     while(fetch_vehicules.next()){
+        int id = fetch_vehicules.value("ROWID").toInt();
         string modele = fetch_vehicules.value("modele").toString().toStdString();
         QDate dernierCT = QDate::fromString(fetch_vehicules.value("dernierCT").toString());
         int prix_horaire = fetch_vehicules.value("prix_horaire").toInt();
@@ -91,7 +93,7 @@ QVector<Vehicule> Systeme::getVehicules(){
         string type = fetch_vehicules.value("type").toString().toStdString();
         bool dispo = fetch_vehicules.value("dispo").toBool();
 
-        Vehicule* v = new Vehicule(modele, dernierCT, prix_horaire, prix_majoration, type, dispo);
+        Vehicule* v = new Vehicule(id, modele, dernierCT, prix_horaire, prix_majoration, type, dispo);
         result.push_back(*v);
     }
 

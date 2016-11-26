@@ -9,6 +9,7 @@ using namespace std;
 class Vehicule
 {
 private:
+    int id;
     string modele;
     QDate dernierControleTechnique;
     int prix_horaire;
@@ -18,7 +19,8 @@ private:
 
 public:
     Vehicule();
-    Vehicule(string modele, QDate dernierControleTechnique, int prix_horaire, int prix_majoration, string type_vehicule, bool dispo);
+    Vehicule(int id, string modele, QDate dernierControleTechnique, int prix_horaire, int prix_majoration, string type_vehicule, bool dispo);
+    int getId();
     string getModele();
     QDate getDernierControleTechnique();
     int getPrixHoraire();

@@ -4,13 +4,18 @@ Vehicule::Vehicule(){
 
 }
 
-Vehicule::Vehicule(string modele, QDate dernierControleTechnique, int prix_horaire, int prix_majoration, string type_vehicule, bool dispo){
+Vehicule::Vehicule(int id, string modele, QDate dernierControleTechnique, int prix_horaire, int prix_majoration, string type_vehicule, bool dispo){
+    this->id = id;
     this->modele = modele;
     this->dernierControleTechnique = dernierControleTechnique;
     this->prix_horaire = prix_horaire;
     this->prix_majoration = prix_majoration;
     this->type_vehicule = type_vehicule;
     this->dispo = dispo;
+}
+
+int Vehicule::getId(){
+    return this->id;
 }
 
 string Vehicule::getModele(){
