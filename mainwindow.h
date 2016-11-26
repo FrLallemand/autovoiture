@@ -60,6 +60,7 @@ private:
     void resizeEvent(QResizeEvent *event);
     void resetHeaderViewSize();
     void setTvForVehicules();
+    void clearTable();
     void setTvForChauffeurs();
     Ui::MainWindow *ui;
 };

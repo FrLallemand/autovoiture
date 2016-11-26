@@ -66,17 +66,23 @@ void MainWindow::on_b_listVehicule_clicked()
 }
 
 void MainWindow::setTvForVehicules(){
-    ui->tvMain->clear();
+    this->clearTable();
     ui->tvMain->setColumnCount(NUM_COLONNE_VEH);
 
     ui->tvMain->setHorizontalHeaderLabels(QString("ID;Modèle;Dernier CT;Prix Horaire;Prix Majoration;Type Véhicule;Disponible").split(";"));
 }
 
 void MainWindow::setTvForChauffeurs(){
-    ui->tvMain->clear();
+    this->clearTable();
     ui->tvMain->setColumnCount(4);
 
     ui->tvMain->setHorizontalHeaderLabels(QString("Prénom;Nom;Adresse;RIB").split(";"));
+}
+
+void MainWindow::clearTable(){
+    ui->tvMain->clear();
+    ui->tvMain->setRowCount(0);
+    ui->tvMain->setColumnCount(0);
 }
 
 void MainWindow::resetHeaderViewSize(){
