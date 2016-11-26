@@ -31,3 +31,5 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui \
     addvehiculedialog.ui \
     addchauffeurdialog.ui
+
+QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter
