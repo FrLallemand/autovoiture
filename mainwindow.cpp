@@ -41,7 +41,7 @@ void MainWindow::on_b_listVehicule_clicked()
 
         for(int i = 0; i < vehicules.size(); i++){
             ui->tvMain->setRowCount(ui->tvMain->rowCount() + 1);
-            ui->tvMain->setItem(i, COLONNE_ID, new QTableWidgetItem());
+            ui->tvMain->setItem(i, COLONNE_ID, new QTableWidgetItem(QString::number(vehicules[i].getId())));
             ui->tvMain->setItem(i, COLONNE_MODELE, new QTableWidgetItem(QString::fromStdString(vehicules[i].getModele())));
             ui->tvMain->setItem(i, COLONNE_LASTCT, new QTableWidgetItem(vehicules[i].getDernierControleTechnique().toString()));
             ui->tvMain->setItem(i, COLONNE_PRIXH, new QTableWidgetItem(QString::number(vehicules[i].getPrixHoraire())));
