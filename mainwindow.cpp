@@ -6,8 +6,29 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->toggleDeleteButton();
+    this->setupConnections();
     this->setWindowTitle("Autovoiture");
     this->setAffiche("Nothing");
+}
+
+void MainWindow::setupConnections(){
+    QObject::connect(ui->tvMain, SIGNAL(itemSelectionChanged()), this, SLOT(toggleDeleteButton()));
+}
+
+void MainWindow::toggleDeleteButton(){
+    if(ui->tvMain->selectedItems().empty()){
+        ui->b_supprimerElement->setStyleSheet("background-color: white; color: grey;");
+        QObject::disconnect(ui->b_supprimerElement, SIGNAL(clicked()), this, SLOT(deleteSelectedElements()));
+    }
+    else{
+        ui->b_supprimerElement->setStyleSheet("background-color: red; color: white;");
+        QObject::connect(ui->b_supprimerElement, SIGNAL(clicked()), this, SLOT(deleteSelectedElements()));
+    }
+}
+
+void MainWindow::deleteSelectedElements(){
+
 }
 
 MainWindow::~MainWindow()

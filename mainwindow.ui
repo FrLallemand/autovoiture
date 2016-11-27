@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1109</width>
-    <height>682</height>
+    <height>689</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -48,6 +48,13 @@
        <widget class="QPushButton" name="b_listeChauffeurs">
         <property name="text">
          <string>Liste des Chauffeurs</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="b_supprimerElement">
+        <property name="text">
+         <string>Supprimer</string>
         </property>
        </widget>
       </item>

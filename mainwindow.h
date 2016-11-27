@@ -47,18 +47,18 @@ public:
 
 private slots:
     void on_b_addVehicule_clicked();
-
     void on_b_listVehicule_clicked();
-
     void on_b_listeChauffeurs_clicked();
-
+    void deleteSelectedElements();
     void on_tvMain_cellDoubleClicked(int row, int column);
-
     void on_b_ajouterChauffeur_clicked();
+    void toggleDeleteButton();
+
 
 private:
     QString affiche;
     void resizeEvent(QResizeEvent *event);
+    void setupConnections();
     void resetHeaderViewSize();
     void setTvForVehicules();
     void clearTable();
