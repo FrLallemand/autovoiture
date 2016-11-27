@@ -101,6 +101,36 @@ QVector<Vehicule> Systeme::getVehicules(){
     return result;
 }
 
+void Systeme::deleteChauffeur(int i){
+    QSqlDatabase db = this->openDatabase();
+
+    QSqlQuery delete_c_query(db);
+    delete_c_query.prepare("delete from chauffeur where ROWID=:id;");
+    delete_c_query.bindValue(":id", i);
+
+    if(!delete_c_query.exec()){
+        qCritical() << "Impossible de supprimer le chauffeur";
+        qCritical() << delete_c_query.lastError().text();
+    }
+
+    db.close();
+}
+
+void Systeme::deleteVehicule(int i){
+    QSqlDatabase db = this->openDatabase();
+
+    QSqlQuery delete_v_query(db);
+    delete_v_query.prepare("delete from vehicule where ROWID=:id;");
+    delete_v_query.bindValue(":id", i);
+
+    if(!delete_v_query.exec()){
+        qCritical() << "Impossible de supprimer le véhicule";
+        qCritical() << delete_v_query.lastError().text();
+    }
+
+    db.close();
+}
+
 QVector<Chauffeur> Systeme::getChauffeurs(){
     QVector<Chauffeur> result;
 

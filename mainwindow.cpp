@@ -28,7 +28,30 @@ void MainWindow::toggleDeleteButton(){
 }
 
 void MainWindow::deleteSelectedElements(){
+    QSet<int> set;
 
+    for(int i = 0; i < ui->tvMain->selectedItems().size(); i++){
+        set.insert(ui->tvMain->selectedItems().at(i)->row());
+    }
+
+    Systeme* s = new Systeme();
+
+    foreach (const int& i, set) {
+        if(this->getAffiche() == "Vehicule"){
+            s->deleteVehicule(i);
+        }
+        else if(this->getAffiche() == "Chauffeur"){
+            s->deleteChauffeur(i);
+        }
+
+    }
+
+    if(this->getAffiche() == "Vehicule"){
+        ui->b_listVehicule->click();
+    }
+    else if(this->getAffiche() == "Chauffeur"){
+        ui->b_listeChauffeurs->click();
+    }
 }
 
 MainWindow::~MainWindow()

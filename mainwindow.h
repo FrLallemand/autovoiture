@@ -10,6 +10,7 @@
 #include <QVector>
 #include <QResizeEvent>
 #include <QPushButton>
+#include <QSet>
 
 #include <iostream>
 
@@ -53,7 +54,6 @@ private slots:
     void on_tvMain_cellDoubleClicked(int row, int column);
     void on_b_ajouterChauffeur_clicked();
     void toggleDeleteButton();
-
 
 private:
     QString affiche;

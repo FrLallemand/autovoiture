@@ -71,6 +71,18 @@ public:
      * \return Une \c QSqlDatabase
      */
     QSqlDatabase openDatabase();
+
+    /*!
+     * \brief Supprime un véhicule de la base de données
+     * \param i numéro du véhicule à supprimer
+     */
+    void deleteVehicule(int i);
+
+    /*!
+     * \brief Supprime un chauffeur de la base de données
+     * \param i numéroe du chauffeur à supprimer.
+     */
+    void deleteChauffeur(int i);
 };
 
 #endif // SYSTEME_H
