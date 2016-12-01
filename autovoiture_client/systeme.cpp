@@ -33,25 +33,53 @@ QSqlDatabase Systeme::openDatabase(){
 
 }
 
+void Systeme::addUser(QString username, QString nom, QString prenom, QString adresse, QString rib, QString password){
+    QSqlDatabase db = this->openDatabase();
+
+    QSqlQuery create_table_users(db);
+    create_table_users.prepare("create table if not exists users("
+                               "username varchar(40) primary key,"
+                               "name varchar(40),"
+                               "firstname varchar(40),"
+                               "adresse varchar(200),"
+                               "rib varchar(200),"
+                               "password varchar(256));");
+
+    if(!create_table_users.exec()){
+        qCritical() << "Impossible de créer la table des utilisateurs";
+        qCritical() << create_table_users.lastError().text();
+    }
+
+    QSqlQuery insert_new_user(db);
+
+    insert_new_user.prepare("insert into users values(?, ?, ?, ?, ?, ?);");
+    insert_new_user.addBindValue(username);
+    insert_new_user.addBindValue(nom);
+    insert_new_user.addBindValue(prenom);
+    insert_new_user.addBindValue(adresse);
+    insert_new_user.addBindValue(rib);
+    insert_new_user.addBindValue(password);
+
+    if(!insert_new_user.exec()){
+        qCritical() << insert_new_user.lastError().text();
+        qCritical() << insert_new_user.executedQuery();
+    }
+
+    db.close();
+}
+
 int Systeme::checkPassword(QString username, QString password){
     QSqlDatabase db = this->openDatabase();
 
-    QSqlQuery fetch_user(db);
-
-    fetch_user.prepare("SELECT username, password FROM users WHERE username=:username;");
-    fetch_user.bindValue(":username", username);
+    QSqlQuery fetch_user(QString("select username, password from users where username = '%1';").arg(username), db);
 
     if(!fetch_user.exec()){
         qWarning() << "Impossible de vérifier le mot de passe de l'utilisateur dans la base de données.";
         qWarning() << fetch_user.lastError().text();
     }
+
     else{
-        qDebug() << "On a" << fetch_user.size() << " utilisateurs avec le nom d'utilisateur " << username;
-        if(fetch_user.size() == -1){
-            return Systeme::LoginResult::BAD_USERNAME;
-        }
-        else{
-            fetch_user.nextResult();
+        if(fetch_user.next()){
             if(fetch_user.value("password").toString() != password){
                 return Systeme::LoginResult::BAD_PASSWORD;
             }
@@ -59,14 +87,16 @@ int Systeme::checkPassword(QString username, QString password){
                 return Systeme::LoginResult::SUCCESS;
             }
         }
+        else{
+            return Systeme::LoginResult::BAD_USERNAME;
+        }
     }
+
+    db.close();
 }
 
 QString Systeme::hashPassword(QString password){
-    QByteArray ba = QCryptographicHash::hash(QByteArray(QCryptographicHash::hash(QString(SEL_AVANT).toUtf8(), QCryptographicHash::Md5) +
-                                                        QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Md5) +
-                                                        QCryptographicHash::hash(QString(SEL_APRES).toUtf8(), QCryptographicHash::Md5)),
-                                             QCryptographicHash::Sha1);
+    QByteArray ba = QByteArray(QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha1));
 
     QString out = ba.toHex();
 

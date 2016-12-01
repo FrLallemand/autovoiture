@@ -10,6 +10,7 @@
 
 #include "mainwindow.h"
 #include "systeme.h"
+#include "inscriptiondialog.h"
 
 namespace Ui {
 class LoginDialog;
@@ -28,6 +29,7 @@ signals:
 
 private slots:
     void checkPassword();
+    void inscription();
 
 private:
     void setConnections();

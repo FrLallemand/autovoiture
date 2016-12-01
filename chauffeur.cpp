@@ -5,7 +5,8 @@ Chauffeur::Chauffeur()
 
 }
 
-Chauffeur::Chauffeur(QString prenom, QString nom, QString adresse, QString rib){
+Chauffeur::Chauffeur(int id, QString prenom, QString nom, QString adresse, QString rib){
+    this->id = id;
     this->prenom = prenom;
     this->nom = nom;
     this->adresse = adresse;
@@ -26,4 +27,8 @@ QString Chauffeur::getAdresse(){
 
 QString Chauffeur::getRib(){
     return this->rib;
+}
+
+int Chauffeur::getId(){
+    return this->id;
 }

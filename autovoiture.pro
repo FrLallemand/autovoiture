@@ -19,14 +19,16 @@ SOURCES += main.cpp\
     addvehiculedialog.cpp \
     vehicule.cpp \
     addchauffeurdialog.cpp \
-    chauffeur.cpp
+    chauffeur.cpp \
+    user.cpp
 
 HEADERS  += mainwindow.h \
     systeme.h \
     addvehiculedialog.h \
     vehicule.h \
     addchauffeurdialog.h \
-    chauffeur.h
+    chauffeur.h \
+    user.h
 
 FORMS    += mainwindow.ui \
     addvehiculedialog.ui \

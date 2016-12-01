@@ -16,6 +16,7 @@
 
 #include "vehicule.h"
 #include "chauffeur.h"
+#include "user.h"
 
 #define DB_NAME "autovoitureDB"
 using namespace std;
@@ -66,6 +67,7 @@ public:
      */
     QVector<Chauffeur> getChauffeurs();
 
+    QVector<User> getUsers();
     /*!
      * \brief Ouvre la base de données ou la récupère si elle est déjà ouverte
      * \return Une \c QSqlDatabase
@@ -83,6 +85,10 @@ public:
      * \param i numéroe du chauffeur à supprimer.
      */
     void deleteChauffeur(int i);
+
+    void deleteUtilisateur(QString username);
+
+    bool toggleVehicule(int id, bool dispo);
 };
 
 #endif // SYSTEME_H

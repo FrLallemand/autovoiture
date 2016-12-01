@@ -52,6 +52,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="b_utilisateurs">
+        <property name="text">
+         <string>Liste des Utilisateurs</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="b_supprimerElement">
         <property name="text">
          <string>Supprimer</string>

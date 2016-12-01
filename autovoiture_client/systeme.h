@@ -20,6 +20,7 @@ class Systeme
 public:
     QString hashPassword(QString password);
     int checkPassword(QString username, QString password);
+    void addUser(QString username, QString nom, QString prenom, QString adresse, QString rib, QString password);
 
     enum LoginResult{
         SUCCESS,

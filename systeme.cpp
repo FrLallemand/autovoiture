@@ -131,11 +131,27 @@ void Systeme::deleteVehicule(int i){
     db.close();
 }
 
+void Systeme::deleteUtilisateur(QString username){
+    qDebug() << "on supprime l'utilisateur " << username;
+    QSqlDatabase db = this->openDatabase();
+
+    QSqlQuery delete_u_query(db);
+    delete_u_query.prepare("delete from users where username=:username;");
+    delete_u_query.bindValue(":username", username);
+
+    if(!delete_u_query.exec()){
+        qCritical() << "Impossible de supprimer l'utilisateur";
+        qCritical() << delete_u_query.lastError().text();
+    }
+
+    db.close();
+}
+
 QVector<Chauffeur> Systeme::getChauffeurs(){
     QVector<Chauffeur> result;
 
     QSqlDatabase db = this->openDatabase();
-    QSqlQuery fetch_chauffeurs("select *"
+    QSqlQuery fetch_chauffeurs("select ROWID, *"
                                "from chauffeur;", db);
 
     if(!fetch_chauffeurs.exec()){
@@ -144,13 +160,41 @@ QVector<Chauffeur> Systeme::getChauffeurs(){
     }
 
     while(fetch_chauffeurs.next()){
+        int id = fetch_chauffeurs.value("ROWID").toInt();
         QString prenom = fetch_chauffeurs.value("prenom").toString();
         QString nom = fetch_chauffeurs.value("nom").toString();
         QString adresse = fetch_chauffeurs.value("adresse").toString();
         QString rib = fetch_chauffeurs.value("rib").toString();
 
-        Chauffeur* c = new Chauffeur(prenom, nom, adresse, rib);
+        Chauffeur* c = new Chauffeur(id, prenom, nom, adresse, rib);
         result.push_back(*c);
+    }
+
+    db.close();
+    return result;
+}
+
+QVector<User> Systeme::getUsers(){
+    QVector<User> result;
+
+    QSqlDatabase db = this->openDatabase();
+    QSqlQuery fetch_users("select *"
+                          "from users;", db);
+
+    if(!fetch_users.exec()){
+        qCritical() << "La récupération des utilisateurs a échoué";
+        qCritical() << fetch_users.lastError().text();
+    }
+
+    while(fetch_users.next()){
+        QString username = fetch_users.value("username").toString();
+        QString name = fetch_users.value("name").toString();
+        QString prenom = fetch_users.value("firstname").toString();
+        QString adresse = fetch_users.value("adresse").toString();
+        QString rib = fetch_users.value("rib").toString();
+
+        User* u = new User(username, name, prenom, adresse, rib);
+        result.push_back(*u);
     }
 
     db.close();
@@ -175,4 +219,20 @@ QSqlDatabase Systeme::openDatabase(){
     else{
         return db;
     }
+}
+
+bool Systeme::toggleVehicule(int id, bool dispo){
+    QSqlDatabase db = this->openDatabase();
+
+    QSqlQuery toggle_dispo(db);
+    toggle_dispo.prepare("update vehicule set dispo = :new_dispo where ROWID=:id;");
+    toggle_dispo.bindValue(":new_dispo", !dispo);
+    toggle_dispo.bindValue(":id", id);
+
+    if(!toggle_dispo.exec()){
+        qCritical() << "Impossible de rendre disponible/indisponible le véhicule";
+        qCritical() << toggle_dispo.lastError().text();
+    }
+
+    return !dispo;
 }

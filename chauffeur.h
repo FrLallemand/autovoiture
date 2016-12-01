@@ -6,6 +6,7 @@
 class Chauffeur
 {
 private:
+    int id;
     QString prenom;
     QString nom;
     QString adresse;
@@ -13,8 +14,9 @@ private:
 
 public:
     Chauffeur();
-    Chauffeur(QString prenom, QString nom, QString adresse, QString rib);
+    Chauffeur(int id, QString prenom, QString nom, QString adresse, QString rib);
 
+    int getId();
     QString getPrenom();
     QString getNom();
     QString getAdresse();

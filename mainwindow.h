@@ -11,6 +11,8 @@
 #include <QResizeEvent>
 #include <QPushButton>
 #include <QSet>
+#include <QVariant>
+#include <QString>
 
 #include <iostream>
 
@@ -29,6 +31,13 @@
 #define COLONNE_TYPE 5
 #define COLONNE_DISPO 6
 #define NUM_COLONNE_VEH 7
+
+//Constants related to user displaying
+#define COLONNE_USER_USERNAME 0
+#define COLONNE_USER_NOM 1
+#define COLONNE_USER_FIRSTNAME 2
+#define COLONNE_USER_ADRESSE 3
+#define COLONNE_USER_RIB 4
 
 using namespace std;
 
@@ -55,6 +64,10 @@ private slots:
     void on_b_ajouterChauffeur_clicked();
     void toggleDeleteButton();
 
+    void on_b_utilisateurs_clicked();
+
+    void on_tvMain_cellClicked(int row, int column);
+
 private:
     QString affiche;
     void resizeEvent(QResizeEvent *event);
@@ -63,6 +76,7 @@ private:
     void setTvForVehicules();
     void clearTable();
     void setTvForChauffeurs();
+    void setTvForUsers();
     Ui::MainWindow *ui;
 };
 

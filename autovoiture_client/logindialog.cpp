@@ -6,7 +6,7 @@ LoginDialog::LoginDialog(QWidget *parent) :
     ui(new Ui::LoginDialog)
 {
     ui->setupUi(this);
-    this->setModal(true);
+    this->setWindowTitle("Connexion");
     this->setConnections();
 }
 
@@ -18,6 +18,13 @@ LoginDialog::~LoginDialog()
 void LoginDialog::setConnections(){
     QObject::connect(this, SIGNAL(finished(int)), this->parentWidget(), SLOT(close()));
     QObject::connect(ui->b_connection, SIGNAL(clicked()), this, SLOT(checkPassword()));
+    QObject::connect(ui->b_inscription, SIGNAL(clicked()), this, SLOT(inscription()));
+}
+
+void LoginDialog::inscription(){
+    InscriptionDialog* id = new InscriptionDialog();
+
+    id->exec();
 }
 
 void LoginDialog::checkPassword(){

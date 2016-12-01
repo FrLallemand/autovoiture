@@ -21,5 +21,5 @@ void MainWindow::displayLogin(){
 }
 
 void MainWindow::loginDone(QString username){
-    ui->setupUi(this);
+    qDebug("plop");
 }
